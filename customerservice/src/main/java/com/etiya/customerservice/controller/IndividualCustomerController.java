@@ -16,7 +16,7 @@ public class IndividualCustomerController {
         this.individualCustomerService = individualCustomerService;
     }
 
-    @PostMapping
+    @PostMapping  // Artık gateway üzerinden istek gidecek //localhost:8091/customerservice/api/individual-customers
     @ResponseStatus(HttpStatus.CREATED)
     public CreatedIndividualCustomerResponse add(@Valid @RequestBody CreateIndividualCustomerRequest request){
         return individualCustomerService.add(request);

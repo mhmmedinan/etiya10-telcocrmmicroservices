@@ -63,3 +63,8 @@ public class Customer extends BaseEntity {
         this.customerNumber = prefix + year + "-" + randomPart;
     }
 }
+
+
+//Customerserviste => Address,City,District,BillingAccount,ContactMedium entitylerini ekleyelim.
+//repositorylerini oluşturalım. Servis sınıflarını yazalım. Mapper sınıflarını yazalım. Global ex handler ekleyelim.
+//Kafka nedir? araştıralım. ElasticSearch nedir? ConfigServer nedir ? 
