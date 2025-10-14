@@ -17,9 +17,5 @@ services:
 
 
 
-
-
-
-
 volumes:
   customer-data:
