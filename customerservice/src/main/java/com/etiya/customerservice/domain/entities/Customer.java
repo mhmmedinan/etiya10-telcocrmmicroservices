@@ -2,8 +2,7 @@ package com.etiya.customerservice.domain.entities;
 
 import com.etiya.common.entities.BaseEntity;
 import jakarta.persistence.*;
-
-import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "customers")
@@ -12,9 +11,10 @@ public class Customer extends BaseEntity {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private int id;
+    //private int id;
+    private UUID id;
 
     @Column(name = "customer_number")
     private String customerNumber;
@@ -27,11 +27,11 @@ public class Customer extends BaseEntity {
 
     //Getter-Setter
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -47,7 +47,7 @@ public class Customer extends BaseEntity {
         this.addresses = addresses;
     }*/
 
-    public Customer(int id, String customerNumber) {
+    public Customer(UUID id, String customerNumber) {
         this.id = id;
         this.customerNumber = customerNumber;
     }
