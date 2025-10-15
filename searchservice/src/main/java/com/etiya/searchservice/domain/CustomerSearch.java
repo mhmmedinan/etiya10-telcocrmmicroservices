@@ -3,9 +3,8 @@ package com.etiya.searchservice.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import java.time.LocalDateTime;
 
-@Document(indexName = "customersearch")
+@Document(indexName = "customer-search")
 public class CustomerSearch {
 
     @Id
@@ -18,7 +17,7 @@ public class CustomerSearch {
 
     private String nationalId;
 
-    private LocalDateTime dateOfBirth;
+    private String dateOfBirth;
 
     private String motherName;
 
@@ -66,11 +65,11 @@ public class CustomerSearch {
         this.nationalId = nationalId;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -101,7 +100,7 @@ public class CustomerSearch {
     public CustomerSearch(){}
 
     public CustomerSearch(String id, String customerNumber, String firstName,
-                          String lastName, String nationalId, LocalDateTime dateOfBirth,
+                          String lastName, String nationalId, String dateOfBirth,
                           String motherName, String fatherName, String gender) {
         this.id = id;
         this.customerNumber = customerNumber;
