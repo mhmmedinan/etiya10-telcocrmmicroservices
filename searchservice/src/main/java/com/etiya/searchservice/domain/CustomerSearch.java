@@ -1,15 +1,20 @@
-package com.etiya.customerservice.service.responses.individualcustomers;
+package com.etiya.searchservice.domain;
 
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-public class CreatedIndividualCustomerResponse {
-    private UUID id;
+@Document(indexName = "customersearch")
+public class CustomerSearch {
+
+    @Id
+    private String id;
+
+    private String customerNumber;
     private String firstName;
 
     private String lastName;
-
-    private String middleName;
 
     private String nationalId;
 
@@ -20,6 +25,22 @@ public class CreatedIndividualCustomerResponse {
     private String fatherName;
 
     private String gender;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getCustomerNumber() {
+        return customerNumber;
+    }
+
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -35,14 +56,6 @@ public class CreatedIndividualCustomerResponse {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getMiddleName() {
-        return middleName;
-    }
-
-    public void setMiddleName(String middleName) {
-        this.middleName = middleName;
     }
 
     public String getNationalId() {
@@ -85,11 +98,19 @@ public class CreatedIndividualCustomerResponse {
         this.gender = gender;
     }
 
-    public UUID getId() {
-        return id;
-    }
+    public CustomerSearch(){}
 
-    public void setId(UUID id) {
+    public CustomerSearch(String id, String customerNumber, String firstName,
+                          String lastName, String nationalId, LocalDateTime dateOfBirth,
+                          String motherName, String fatherName, String gender) {
         this.id = id;
+        this.customerNumber = customerNumber;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nationalId = nationalId;
+        this.dateOfBirth = dateOfBirth;
+        this.motherName = motherName;
+        this.fatherName = fatherName;
+        this.gender = gender;
     }
 }

@@ -8,6 +8,7 @@ import com.etiya.customerservice.service.mappings.IndividualCustomerMapper;
 import com.etiya.customerservice.service.requests.individualcustomers.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.individualcustomers.CreatedIndividualCustomerResponse;
 import com.etiya.customerservice.service.rules.IndividualCustomerBusinessRules;
+import com.etiya.customerservice.transport.kafka.producer.customer.CreateCustomerProducer;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,10 +16,12 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
 
     private final IndividualCustomerRepository individualCustomerRepository;
     private final IndividualCustomerBusinessRules rules;
+    private final CreateCustomerProducer createCustomerProducer;
 
-    public IndividualCustomerServiceImpl(IndividualCustomerRepository individualCustomerRepository, IndividualCustomerBusinessRules rules) {
+    public IndividualCustomerServiceImpl(IndividualCustomerRepository individualCustomerRepository, IndividualCustomerBusinessRules rules, CreateCustomerProducer createCustomerProducer) {
         this.individualCustomerRepository = individualCustomerRepository;
         this.rules = rules;
+        this.createCustomerProducer = createCustomerProducer;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
                         createdIndividualCustomer.getMotherName(),
                         createdIndividualCustomer.getFatherName(),
                         createdIndividualCustomer.getGender());
-
+        createCustomerProducer.produceCustomerCreated(event);
 
         CreatedIndividualCustomerResponse response =
                 IndividualCustomerMapper.INSTANCE.createdIndividualCustomerResponseFromIndividualCustomer(createdIndividualCustomer);
