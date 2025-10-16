@@ -1,6 +1,5 @@
 package com.etiya.searchservice.domain;
 
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -11,6 +10,7 @@ public class CustomerSearch {
     private String id;
 
     private String customerNumber;
+
     private String firstName;
 
     private String lastName;

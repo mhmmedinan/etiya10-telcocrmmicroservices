@@ -5,8 +5,9 @@ import com.etiya.searchservice.domain.CustomerSearch;
 import com.etiya.searchservice.service.CustomerSearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import java.util.function.Consumer;
 
 @Service
 public class CreatedCustomerConsumer {
@@ -18,7 +19,19 @@ public class CreatedCustomerConsumer {
         this.customerSearchService = customerSearchService;
     }
 
-    @KafkaListener(topics = "create-customer",groupId = "create-customer-group")
+    @Bean
+    public Consumer<CreateCustomerEvent> consume(){
+        return event -> {
+            CustomerSearch customerSearch = new CustomerSearch(event.customerId(),
+                    event.customerNumber(),
+                    event.firstName(),
+                    event.lastName(),event.nationalId(),event.dateOfBirth(), event.motherName(), event.fatherName(), event.gender());
+            customerSearchService.add(customerSearch);
+            LOGGER.info(String.format("Consumed Customer => %s",event.customerId()));
+        };
+    }
+
+    /*@KafkaListener(topics = "create-customer",groupId = "create-customer-group")
     public void consume(CreateCustomerEvent event){
         LOGGER.info(String.format("Consumed Customer => %s",event.customerId()));
         CustomerSearch customerSearch = new CustomerSearch(event.customerId(),
@@ -26,5 +39,5 @@ public class CreatedCustomerConsumer {
                 event.firstName(),
                 event.lastName(),event.nationalId(),event.dateOfBirth(), event.motherName(), event.fatherName(), event.gender());
         customerSearchService.add(customerSearch);
-    }
+    }*/
 }
