@@ -9,4 +9,5 @@ public interface CustomerSearchService {
     void add(CustomerSearch customerSearch);
     List<CustomerSearch> findAll();
     void delete(String id);
+    List<CustomerSearch> searchAllFields(String keyword);
 }

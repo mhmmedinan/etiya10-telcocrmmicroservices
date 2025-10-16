@@ -3,7 +3,6 @@ package com.etiya.searchservice.service;
 import com.etiya.searchservice.domain.CustomerSearch;
 import com.etiya.searchservice.repository.CustomerSearchRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -30,5 +29,10 @@ public class CustomerSearchServiceImpl implements CustomerSearchService{
     @Override
     public void delete(String id) {
         customerSearchRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CustomerSearch> searchAllFields(String keyword) {
+        return customerSearchRepository.searchAllFields(keyword);
     }
 }
