@@ -6,10 +6,12 @@ import com.etiya.searchservice.service.CustomerSearchService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Service;
 import java.util.function.Consumer;
 
-@Service
+//@Service
+@Configuration
 public class CreatedCustomerConsumer {
 
     private final CustomerSearchService customerSearchService;
@@ -20,7 +22,7 @@ public class CreatedCustomerConsumer {
     }
 
     @Bean
-    public Consumer<CreateCustomerEvent> consume(){
+    public Consumer<CreateCustomerEvent> customerCreated(){
         return event -> {
             CustomerSearch customerSearch = new CustomerSearch(event.customerId(),
                     event.customerNumber(),
