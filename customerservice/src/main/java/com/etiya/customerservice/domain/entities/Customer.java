@@ -2,6 +2,8 @@ package com.etiya.customerservice.domain.entities;
 
 import com.etiya.common.entities.BaseEntity;
 import jakarta.persistence.*;
+
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +20,9 @@ public class Customer extends BaseEntity {
 
     @Column(name = "customer_number")
     private String customerNumber;
+
+    @OneToMany(mappedBy = "customer")
+    private List<ContactMedium> contactMediums;
 
 
     //navigation property

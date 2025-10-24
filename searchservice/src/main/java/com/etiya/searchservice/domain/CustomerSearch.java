@@ -2,6 +2,10 @@ package com.etiya.searchservice.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(indexName = "customer-search")
 public class CustomerSearch {
@@ -24,6 +28,17 @@ public class CustomerSearch {
     private String fatherName;
 
     private String gender;
+
+    @Field(type = FieldType.Nested)
+    List<ContactMedium> contactMediums = new ArrayList<>();
+
+    public List<ContactMedium> getContactMediums() {
+        return contactMediums;
+    }
+
+    public void setContactMediums(List<ContactMedium> contactMediums) {
+        this.contactMediums = contactMediums;
+    }
 
     public String getId() {
         return id;

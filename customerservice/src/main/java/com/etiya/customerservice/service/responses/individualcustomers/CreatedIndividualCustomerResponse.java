@@ -1,6 +1,6 @@
 package com.etiya.customerservice.service.responses.individualcustomers;
 
-import java.time.LocalDateTime;
+
 import java.util.UUID;
 
 public class CreatedIndividualCustomerResponse {
@@ -13,7 +13,7 @@ public class CreatedIndividualCustomerResponse {
 
     private String nationalId;
 
-    private LocalDateTime dateOfBirth;
+    private String dateOfBirth;
 
     private String motherName;
 
@@ -53,11 +53,11 @@ public class CreatedIndividualCustomerResponse {
         this.nationalId = nationalId;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

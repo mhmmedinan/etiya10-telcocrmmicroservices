@@ -1,9 +1,11 @@
 package com.etiya.searchservice.service;
 
+import com.etiya.searchservice.domain.ContactMedium;
 import com.etiya.searchservice.domain.CustomerSearch;
 import com.etiya.searchservice.repository.CustomerSearchRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -34,5 +36,19 @@ public class CustomerSearchServiceImpl implements CustomerSearchService{
     @Override
     public List<CustomerSearch> searchAllFields(String keyword) {
         return customerSearchRepository.searchAllFields(keyword);
+    }
+
+    @Override
+    public void addContactMedium(ContactMedium contactMedium) {
+        var customerSearch = customerSearchRepository.findById(contactMedium.getCustomerId()).orElseThrow();
+        customerSearch.getContactMediums().removeIf(a -> Objects.equals(a.getContactMediumId(), contactMedium.getContactMediumId())); // idempotent
+
+        customerSearch.getContactMediums().add(contactMedium);
+        customerSearchRepository.save(customerSearch);
+    }
+
+    @Override
+    public List<CustomerSearch> searchDynamic(String id, String customerNumber, String nationalId, String firstName, String lastName, String value) {
+        return customerSearchRepository.searchDynamic(id,customerNumber,nationalId,firstName,lastName,value);
     }
 }

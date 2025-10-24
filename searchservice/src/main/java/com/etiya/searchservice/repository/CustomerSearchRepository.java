@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CustomerSearchRepository extends ElasticsearchRepository<CustomerSearch,String> {
+public interface CustomerSearchRepository extends ElasticsearchRepository<CustomerSearch,String>,CustomCustomerSearchRepository {
 
     @Query("""
             {
@@ -19,6 +19,5 @@ public interface CustomerSearchRepository extends ElasticsearchRepository<Custom
             }
             """)
     List<CustomerSearch> searchAllFields(String keyword);
-
 
 }

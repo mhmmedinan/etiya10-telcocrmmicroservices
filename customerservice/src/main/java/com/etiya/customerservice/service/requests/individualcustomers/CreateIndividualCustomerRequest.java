@@ -21,7 +21,7 @@ public class CreateIndividualCustomerRequest {
     @Pattern(regexp = "^[0-9]+$",message = "Identity number must contain only numbers")
     private String nationalId;
 
-    private LocalDateTime dateOfBirth;
+    private String dateOfBirth;
 
     private String motherName;
 
@@ -61,11 +61,11 @@ public class CreateIndividualCustomerRequest {
         this.nationalId = nationalId;
     }
 
-    public LocalDateTime getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDateTime dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
