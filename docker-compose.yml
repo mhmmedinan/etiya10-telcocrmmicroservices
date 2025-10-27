@@ -89,6 +89,19 @@ services:
       - "9300:9300" # cluster içi iletişim portu
   
 
+  authservicedb:
+    container_name: authservicedb
+    image: postgres
+    ports:
+      - "5451:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=identitydb
+    volumes:
+      - "auth-data:/var/lib/postgresql/data"
+  
+
     
 
 
@@ -103,3 +116,4 @@ services:
 
 volumes:
   customer-data:
+  auth-data:
