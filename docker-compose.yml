@@ -101,6 +101,19 @@ services:
     volumes:
       - "auth-data:/var/lib/postgresql/data"
   
+  catalogservicedb:
+    container_name: catalogservicedb
+    image: postgres
+    ports:
+      - "5452:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_DB=catalogdb
+    volumes:
+      - "catalog-data:/var/lib/postgresql/data"
+
+  
 
     
 
@@ -117,3 +130,4 @@ services:
 volumes:
   customer-data:
   auth-data:
+  catalog-data:
