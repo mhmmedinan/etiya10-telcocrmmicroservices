@@ -114,6 +114,18 @@ services:
       - "catalog-data:/var/lib/postgresql/data"
 
   
+  basketservicedb:
+    container_name: basketservicedb
+    image: redis:7.2
+    ports:
+      - "6385:6379"
+    volumes:
+      - basket-data:/data
+    
+
+
+
+  
 
     
 
@@ -131,3 +143,4 @@ volumes:
   customer-data:
   auth-data:
   catalog-data:
+  basket-data:
