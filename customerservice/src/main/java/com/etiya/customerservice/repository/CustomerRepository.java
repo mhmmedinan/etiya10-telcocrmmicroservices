@@ -8,6 +8,6 @@ import java.util.UUID;
 
 @NoRepositoryBean
 public interface CustomerRepository<T extends Customer> extends JpaRepository<T, UUID> {
-    boolean existsById(int id);
+    boolean existsById(UUID id);
 
 }

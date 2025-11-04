@@ -1,11 +1,14 @@
 package com.etiya.customerservice.controller;
 
+import com.etiya.common.responses.CustomerResponse;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
 import com.etiya.customerservice.service.requests.individualcustomers.CreateIndividualCustomerRequest;
 import com.etiya.customerservice.service.responses.individualcustomers.CreatedIndividualCustomerResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/individual-customers/")
@@ -20,6 +23,12 @@ public class IndividualCustomerController {
     @ResponseStatus(HttpStatus.CREATED)
     public CreatedIndividualCustomerResponse add(@Valid @RequestBody CreateIndividualCustomerRequest request){
         return individualCustomerService.add(request);
+    }
+
+    @GetMapping("{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerResponse getById(@PathVariable UUID id){
+        return individualCustomerService.getById(id);
     }
 
 }

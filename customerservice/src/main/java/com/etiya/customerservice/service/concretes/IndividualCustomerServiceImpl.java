@@ -1,6 +1,9 @@
 package com.etiya.customerservice.service.concretes;
 
+import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
 import com.etiya.common.events.CreateCustomerEvent;
+import com.etiya.common.responses.CustomerResponse;
+import com.etiya.customerservice.domain.entities.Customer;
 import com.etiya.customerservice.domain.entities.IndividualCustomer;
 import com.etiya.customerservice.repository.IndividualCustomerRepository;
 import com.etiya.customerservice.service.abstracts.IndividualCustomerService;
@@ -10,6 +13,8 @@ import com.etiya.customerservice.service.responses.individualcustomers.CreatedIn
 import com.etiya.customerservice.service.rules.IndividualCustomerBusinessRules;
 import com.etiya.customerservice.transport.kafka.producer.customer.CreateCustomerProducer;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class IndividualCustomerServiceImpl implements IndividualCustomerService {
@@ -44,6 +49,17 @@ public class IndividualCustomerServiceImpl implements IndividualCustomerService 
 
         CreatedIndividualCustomerResponse response =
                 IndividualCustomerMapper.INSTANCE.createdIndividualCustomerResponseFromIndividualCustomer(createdIndividualCustomer);
+        return response;
+    }
+
+    @Override
+    public CustomerResponse getById(UUID id) {
+        return individualCustomerRepository.findById(id).stream().map(this::mapToResponse).findFirst().orElseThrow(()->new BusinessException("Customer Not Found"));
+    }
+
+    private CustomerResponse mapToResponse(Customer customer){
+        CustomerResponse response = new CustomerResponse();
+        response.setId(customer.getId());
         return response;
     }
 }
