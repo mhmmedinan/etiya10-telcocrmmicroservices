@@ -15,7 +15,7 @@ public class BasketRepository {
     private final HashOperations<String,String, Basket> basketHashOperations;
 
 
-    public BasketRepository(RedisTemplate<String, Object> redisTemplate, HashOperations<String, String, Basket> basketHashOperations) {
+    public BasketRepository(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
         this.basketHashOperations = redisTemplate.opsForHash();
     }

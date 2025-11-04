@@ -21,4 +21,5 @@ public class IndividualCustomerController {
     public CreatedIndividualCustomerResponse add(@Valid @RequestBody CreateIndividualCustomerRequest request){
         return individualCustomerService.add(request);
     }
+
 }
