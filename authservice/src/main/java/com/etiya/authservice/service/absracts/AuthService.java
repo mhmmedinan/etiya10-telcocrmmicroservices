@@ -1,9 +1,11 @@
 package com.etiya.authservice.service.absracts;
 
+import com.etiya.authservice.service.dtos.LoggedResponse;
 import com.etiya.authservice.service.dtos.LoginRequest;
+import com.etiya.authservice.service.dtos.RegisterResponse;
 import com.etiya.authservice.service.dtos.RegisterUserRequest;
 
 public interface AuthService {
-    void register(RegisterUserRequest request);
-    String login(LoginRequest request);
+    RegisterResponse register(RegisterUserRequest request);
+    LoggedResponse login(LoginRequest request);
 }

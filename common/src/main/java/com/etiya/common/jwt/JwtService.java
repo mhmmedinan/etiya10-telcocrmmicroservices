@@ -39,7 +39,7 @@ public class JwtService {
         return getClaimsFromToken(token).get("roles",List.class);
     }
 
-    private Date extractExpiration(String token){
+    public Date extractExpiration(String token){
         return getClaimsFromToken(token).getExpiration(); //10/27/2025 4:08 PM
     }
 

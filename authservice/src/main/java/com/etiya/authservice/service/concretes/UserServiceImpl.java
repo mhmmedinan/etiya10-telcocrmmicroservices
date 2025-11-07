@@ -4,6 +4,7 @@ import com.etiya.authservice.domain.User;
 import com.etiya.authservice.repository.UserRepository;
 import com.etiya.authservice.service.absracts.UserService;
 import com.etiya.authservice.service.dtos.RegisterUserRequest;
+import com.etiya.authservice.service.dtos.UserResponse;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,13 +23,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void add(RegisterUserRequest request) {
+    public UserResponse add(RegisterUserRequest request) {
         User user = new User();
         user.setEmail(request.getEmail());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        userRepository.save(user);
+        var createdUser = userRepository.save(user);
+        UserResponse response = new UserResponse();
+        response.setEmail(createdUser.getEmail());
+        response.setFirstName(createdUser.getFirstName());
+        response.setLastName(createdUser.getLastName());
+        return response;
 
 
     }

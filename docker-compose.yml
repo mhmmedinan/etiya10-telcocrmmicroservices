@@ -121,6 +121,14 @@ services:
       - "6385:6379"
     volumes:
       - basket-data:/data
+  
+  salesservicedb:
+    container_name: salesservicedb
+    image: mongo
+    ports:
+      - "27020:27017"
+    volumes:
+      - "sales-data:/data/db/"
     
 
 
@@ -144,3 +152,4 @@ volumes:
   auth-data:
   catalog-data:
   basket-data:
+  sales-data:

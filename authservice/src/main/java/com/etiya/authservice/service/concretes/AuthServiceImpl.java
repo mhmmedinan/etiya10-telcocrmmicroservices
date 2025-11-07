@@ -2,8 +2,11 @@ package com.etiya.authservice.service.concretes;
 
 import com.etiya.authservice.service.absracts.AuthService;
 import com.etiya.authservice.service.absracts.UserService;
+import com.etiya.authservice.service.dtos.LoggedResponse;
 import com.etiya.authservice.service.dtos.LoginRequest;
+import com.etiya.authservice.service.dtos.RegisterResponse;
 import com.etiya.authservice.service.dtos.RegisterUserRequest;
+import com.etiya.common.crosscuttingconcerns.exceptions.types.BusinessException;
 import com.etiya.common.jwt.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,19 +29,29 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void register(RegisterUserRequest request) {
-        userService.add(request);
-
+    public RegisterResponse register(RegisterUserRequest request) {
+       var user = userService.add(request);
+       RegisterResponse response = new RegisterResponse();
+        response.setEmail(user.getEmail());
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
+        return response;
         //Register işlemi için business kuralları tanımlayın
     }
 
     @Override
-    public String login(LoginRequest request) {
+    public LoggedResponse login(LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate
                 (new UsernamePasswordAuthenticationToken(request.getEmail(),request.getPassword()));
+
         if(!authentication.isAuthenticated())
-            throw new RuntimeException("E posta veya şifre hatalı"); //RuntimeEx türü AuthenticationEx olacak.
+            throw new BusinessException("E posta veya şifre hatalı"); //RuntimeEx türü AuthenticationEx olacak.
+
         UserDetails user = userService.loadUserByUsername(request.getEmail());
-        return jwtService.generateToken(user.getUsername(),user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
+
+        String token = jwtService.generateToken(user.getUsername(),user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
+
+        String expiration = jwtService.extractExpiration(token).toString();
+        return new LoggedResponse(token,expiration);
     }
 }
